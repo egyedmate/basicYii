@@ -376,3 +376,33 @@ REQUEST_URI=/BasicYii/application/index.php/users/view/19
 in C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\application\protected\views\users\view.php (58)
 in C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\application\protected\controllers\UsersController.php (55)
 in C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\application\index.php (13)
+2014/07/19 03:13:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'A rendszer nem találja a "users" action-t.' in C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\web\CController.php:483
+Stack trace:
+#0 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\web\CController.php(270): CController->missingAction('users')
+#1 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\web\CWebApplication.php(282): CController->run('users')
+#2 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\web\CWebApplication.php(141): CWebApplication->runController('gii/bootstrap/u...')
+#3 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#4 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\application\index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/BasicYii/application/index.php/gii/bootstrap/users
+---
+2014/07/19 03:13:52 [error] [exception.CException] exception 'CException' with message 'BootstrapCode and its behaviors do not have a method or closure named "generateActiveRow".' in C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\base\CComponent.php:266
+Stack trace:
+#0 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\application\protected\extensions\bootstrap\gii\bootstrap\templates\mate\_form.php(30): CComponent->__call('generateActiveR...', Array)
+#1 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\application\protected\extensions\bootstrap\gii\bootstrap\templates\mate\_form.php(30): BootstrapCode->generateActiveRow('Users', Object(CPgsqlColumnSchema))
+#2 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\gii\CCodeModel.php(321): require('C:\\Bitnami\\wapp...')
+#3 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\gii\generators\crud\CrudCode.php(97): CCodeModel->render('C:\\Bitnami\\wapp...')
+#4 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\gii\CCodeGenerator.php(162): CrudCode->prepare()
+#5 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\gii\CCodeGenerator.php(63): CCodeGenerator->prepare()
+#6 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\web\actions\CInlineAction.php(49): CCodeGenerator->actionIndex()
+#7 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\web\CController.php(308): CInlineAction->runWithParams(Array)
+#8 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\web\CController.php(286): CController->runAction(Object(CInlineAction))
+#9 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\web\CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\web\CWebApplication.php(282): CController->run('')
+#11 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\web\CWebApplication.php(141): CWebApplication->runController('gii/bootstrap')
+#12 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#13 C:\Bitnami\wappstack-5.4.30-0\apache2\htdocs\BasicYii\application\index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/BasicYii/application/index.php/gii/bootstrap/
+HTTP_REFERER=http://localhost/BasicYii/application/index.php/gii/bootstrap/
+---

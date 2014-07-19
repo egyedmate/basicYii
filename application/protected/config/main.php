@@ -20,6 +20,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+                'bootstrap.helpers.TbHtml',
 	),
 
 	'modules'=>array(
@@ -42,7 +43,7 @@ return array(
 	// application components
 	'components'=>array(
                 'bootstrap'=>array(
-                    'class'=>'bootstrap.components.Bootstrap',
+                    'class'=>'bootstrap.components.TbApi',
                 ),
 		'user'=>array(
 			// enable cookie-based authentication

@@ -1,5 +1,5 @@
 <?php
 return array (
-  'template' => 'mate',
+  'template' => 'default_new',
   'baseControllerClass' => 'Controller',
 );
