@@ -436,9 +436,9 @@ class CDbCriteria extends CComponent
 		if($partialMatch)
 		{
 			if($op==='')
-				return $this->addSearchCondition($column,$value,$escape,$operator);
+				return $this->addSearchCondition($column,$value,$escape,$operator, 'ILIKE');
 			if($op==='<>')
-				return $this->addSearchCondition($column,$value,$escape,$operator,'NOT LIKE');
+				return $this->addSearchCondition($column,$value,$escape,$operator,'NOT ILIKE');
 		}
 		elseif($op==='')
 			$op='=';

@@ -2,6 +2,13 @@
 
 class SiteController extends Controller
 {
+        public function filters(){
+            return array(
+                'rights', // perform access control for CRUD operations
+
+            );
+        }
+    
 	/**
 	 * Declares class-based actions.
 	 */

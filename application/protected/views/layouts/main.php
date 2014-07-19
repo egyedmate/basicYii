@@ -1,5 +1,5 @@
 <?php /* @var $this Controller */ ?>
-<?php Yii::app()->bootstrap->register(); ?>
+<?php //Yii::app()->bootstrap->register(); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -15,6 +15,7 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -27,31 +28,16 @@
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
 
-	<div id="mainmenu">
-		<?php /*$this->widget('zii.widgets.CMenu',array(
-			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
-			),
-		));*/ ?>
-            <?php
-                    $this->widget('zii.widgets.CMenu',array(
-                        'items'=>array(
-                            array('label'=>Yii::t('app','Home'), 'url'=>array('/site/index')),
-                            array('label'=>Yii::t('app','About'), 'url'=>array('/site/page', 'view'=>'about')),
-                            array('label'=>Yii::t('app','Contact'), 'url'=>array('/site/contact')),
-                            array('label'=>Yii::t('app','Login'), 'url'=>array('/user/login'),'visible'=>Yii::app()->user->isGuest),
-                            array('label'=>Yii::t('app','Rights'), 'url'=>array('/rights')),
-                            array('label'=>Yii::t('app','Logout').' ('.Yii::app()->user->name.')', 'url'=>array('/user/logout'), 'visible'=>!Yii::app()->user->isGuest)
-                        ,
-                    )));
-            ?>
-            
-            
-	</div><!-- mainmenu -->
+        <div id="build-menu">
+                <?php
+                $this->widget('ext.menubuilder.widgets.EMBMenu', array(
+                        'menuClass' => 'ext.menubuilder.extensions.superfish.RSuperfish', //The integrated superfish menu
+                        //'menuOptions'=> array( ....), //the CMenu/Superfish properties
+                        'menuIds' => 'main', //display the menu with the id 'main'
+                ));
+                ?>
+        </div>
+
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,

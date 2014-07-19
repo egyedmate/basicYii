@@ -20,12 +20,4 @@ class Controller extends RController
 	 * for more details on how to specify this property.
 	 */
 	public $breadcrumbs=array();
-        
-        public function filters(){
-            return array(
-                'rights', // perform access control for CRUD operations
-
-            );
-        }
-        
 }

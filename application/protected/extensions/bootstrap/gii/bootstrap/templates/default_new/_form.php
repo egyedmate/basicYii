@@ -20,12 +20,13 @@
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
 )); ?>\n"; ?>
-
+    <p class="help-block">
         <?php
         echo "<?php
             echo Yii::t('app','Fields with <span class=\"required\">*</span> are required.');
         ?>";
         ?>
+    </p>
 
     <?php echo "<?php echo \$form->errorSummary(\$model); ?>\n"; ?>
 

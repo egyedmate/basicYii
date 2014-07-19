@@ -8,6 +8,9 @@
 // http://www.getyiistrap.com/site/started bootsrtap description
 
 Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
+Yii::setPathOfAlias('yiibooster', dirname(__FILE__).'/../extensions/yiibooster');
+//Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap2');
+Yii::setPathOfAlias('yiiwheels', dirname(__FILE__).'/../extensions/yiiwheels');
 
 return array(
         'theme' => 'bootstrap',
@@ -15,8 +18,10 @@ return array(
 	'name'=>'My Web Application',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
-
+        'preload' => array(
+            'log',
+            'bootstrap'
+        ),
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
@@ -74,7 +79,6 @@ return array(
                         'returnLogoutUrl' => array('/user/login'),
                 ),
                 'rights'=>array(
-
                        'superuserName'=>'Admin', // Name of the role with super user privileges. 
                        'authenticatedName'=>'Authenticated',  // Name of the authenticated user role. 
                        'userIdColumn'=>'id', // Name of the user id column in the database. 
@@ -91,6 +95,20 @@ return array(
                        'cssFile'=>'rights.css', // Style sheet file to use for Rights. 
                        'install'=>false,  // Whether to enable installer. 
                        'debug'=>false, 
+                ),            
+                'menubuilder' => array(
+                        //'theme' => 'bootstrap', //comment for bluegrid theme (=default)
+                        'checkInstall'=>false, //uncomment after first usage
+                        //'cacheDuration'=> -1, //uncomment for disabling the menucaching
+                        'languages' => array('en_us'),
+                        //'supportedScenarios' => array('backend' => 'Backend', 'frontend' => 'Frontend', 'dashboard' => 'Dashboard'),
+                        //set EMBDbAdapter to switch to mysql (checkInstall=>true on first run)
+                        //'dataAdapterClass'=> 'EMBDbAdapter', //'EMBMongoDbAdapter',
+                        //'dataFilterClass'=>'DataFilter',
+                        //the available menus/lists for the preview
+                        'previewMenus' => array(
+                                'superfish'=>'Superfish',
+                        )
                 ),
 	),
         'behaviors' => array(
@@ -102,6 +120,12 @@ return array(
 	'components'=>array(
                 'bootstrap'=>array(
                     'class'=>'bootstrap.components.TbApi',
+                ),
+                'yiiwheels' => array(
+                    'class' => 'yiiwheels.YiiWheels',   
+                ),
+                'yiibooster' => array(
+                    'class' => 'yiibooster.components.Booster',   
                 ),
                 'user'=>array(
                         'class'=>'RWebUser',
