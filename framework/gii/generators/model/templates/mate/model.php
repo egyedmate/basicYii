@@ -97,11 +97,11 @@ foreach ($columns as $key => $value) {
     if ($printable) {
         if ($is_date) {
             echo "// NOTE BY MATE: More information about CURRENT_TIMESTAMP(0) function ask ruzso \n\n";
-            echo "// array('$key', 'default', 'value' => new CDbExpression('CURRENT_TIMESTAMP(0), 'on' => 'insert_$tableName')),\n";
-            echo "// array('$key', 'default', 'value' => new CDbExpression('CURRENT_TIMESTAMP(0), 'on' => 'update_$tableName')),\n\n";
+            echo "// array('$key', 'default', 'value' => new CDbExpression('CURRENT_TIMESTAMP(0), 'on' => 'insert_$modelClass')),\n";
+            echo "// array('$key', 'default', 'value' => new CDbExpression('CURRENT_TIMESTAMP(0), 'on' => 'update_$modelClass')),\n\n";
         } else {
-            echo "// array('$key', 'default', 'value' => Yii::app()->params[''], 'on' => 'insert_$tableName'),\n";
-            echo "// array('$key', 'default', 'value' => Yii::app()->params[''], 'on' => 'update_$tableName'),\n\n";
+            echo "// array('$key', 'default', 'value' => Yii::app()->params[''], 'on' => 'insert_$modelClass'),\n";
+            echo "// array('$key', 'default', 'value' => Yii::app()->params[''], 'on' => 'update_$modelClass'),\n\n";
         }
     }
 }
@@ -136,7 +136,7 @@ public function attributeLabels()
 {
 return array(
 <?php foreach ($labels as $name => $label): ?>
-    <?php echo "'$name' => Yii::t('$tableName','$label'),\n"; ?>
+    <?php echo "'$name' => Yii::t('$modelClass','$label'),\n"; ?>
 <?php endforeach; ?>
 );
 }

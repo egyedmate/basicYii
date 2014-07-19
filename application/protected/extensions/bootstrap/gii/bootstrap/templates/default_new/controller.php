@@ -18,13 +18,13 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	/**
 	 * @return array action filters
 	 */
-	/*public function filters()
+	public function filters()
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
 		);
-	}*/
+	}
 
 	/**
 	 * Specifies the access control rules.
@@ -70,15 +70,37 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	public function actionCreate()
 	{
 		$model=new <?php echo $this->modelClass; ?>;
+                                
+                //$model->setScenario('insert_<?php echo $this->modelClass; ?>');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if (isset($_POST['<?php echo $this->modelClass; ?>'])) {
 			$model->attributes=$_POST['<?php echo $this->modelClass; ?>'];
-			if ($model->save()) {
-				$this->redirect(array('view','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
-			}
+                        
+                        $transaction = Yii::app()->db->beginTransaction();
+			try{
+                        
+                        	if (!($model->save()))
+					throw new CDbException(Yii::t('<?php echo $this->modelClass; ?>', '<?php echo "Can not save <i>$this->modelClass</i> data. Please contact an adminsitrator."; ?>'));
+                                   
+				//$model->setScenario('insert_<?php echo $this->modelClass; ?>');
+				$transaction->commit();
+				Yii::app()->user->setFlash('success',Yii::t('<?php echo $this->modelClass; ?>','<?php echo "<strong>Success!</strong>The data successfully inserted.";?>'));
+                        	
+                                if (Yii::app()->getRequest()->getIsAjaxRequest())
+					Yii::app()->end();
+				else
+                                        $this->redirect(array('view','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
+					//$this->redirect(array('index', 'id' => $model-><?php echo $this->tableSchema->primaryKey; ?>));
+                        
+                        }catch (CDbException $ex){
+                        	$transaction->rollback();
+                                //$model->setScenario('insert_<?php echo $this->modelClass; ?>');
+				$model->setIsNewRecord(true);
+				$model->addError('<?php echo $this->modelClass; ?>', $ex->getMessage());
+                        }
 		}
 
 		$this->render('create',array(
@@ -94,17 +116,42 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+                //$model->setScenario('update_<?php echo $this->modelClass; ?>');
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+                
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if (isset($_POST['<?php echo $this->modelClass; ?>'])) {
 			$model->attributes=$_POST['<?php echo $this->modelClass; ?>'];
-			if ($model->save()) {
-				$this->redirect(array('view','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
-			}
-		}
-
+                        
+                        $transaction = Yii::app()->db->beginTransaction();
+			try{
+                        
+                        	if (!($model->save()))
+					throw new CDbException(Yii::t('<?php echo $this->modelClass; ?>', '<?php echo "Can not save <i>$this->modelClass</i> data. Please contact an adminsitrator."; ?>'));
+                                   
+				//$model->setScenario('update_<?php echo $this->modelClass; ?>');
+				$transaction->commit();
+				Yii::app()->user->setFlash('success',Yii::t('<?php echo $this->modelClass; ?>','<?php echo "<strong>Success!</strong>The data successfully updated.";?>'));
+                        	
+                                if (Yii::app()->getRequest()->getIsAjaxRequest())
+					Yii::app()->end();
+				else
+                                        $this->redirect(array('view','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>));
+					//$this->redirect(array('index', 'id' => $model-><?php echo $this->tableSchema->primaryKey; ?>));
+                        
+                        }catch (CDbException $ex){
+                        	$transaction->rollback();
+                                //$model->setScenario('update_<?php echo $this->modelClass; ?>');
+				$model->setIsNewRecord(true);
+				$model->addError('<?php echo $this->modelClass; ?>', $ex->getMessage());
+                        }
+		}                
+                
 		$this->render('update',array(
 			'model'=>$model,
 		));
@@ -128,6 +175,36 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 		} else {
 			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
 		}
+                //if cannot delete record in db then uncomment the following code
+                /*
+                
+                if (Yii::app()->getRequest()->getIsPostRequest()) {
+			// we only allow deletion via POST request
+			$model = $this->loadModel($id);
+                        
+			$model->setAttribute('attribute', Yii::app()->params['']);
+
+			$transaction = Yii::app()->db->beginTransaction();
+			try
+			{
+				if (!($model->save()))
+					throw new CDbException(Yii::t('<?php echo $this->modelClass; ?>', '<?php echo "Can not save <i>$this->modelClass</i> data. Please contact an adminsitrator."; ?>'));
+				$transaction->commit();
+				Yii::app()->user->setFlash('success',Yii::t('<?php echo $this->modelClass; ?>','<?php echo "<strong>Success!</strong>The data successfully deleted.";?>'));
+				if (!Yii::app()->getRequest()->getIsAjaxRequest()){
+					$this->redirect(array('index'));
+				}
+			}
+			catch (CDbException $ex)
+			{
+				$transaction->rollback();
+				$model->addError('app', $ex->getMessage());
+			}
+		} else
+			throw new CHttpException(400, Yii::t('app', 'Invalid request. Please do not repeat this request again.'));
+                
+                */
+                
 	}
 
 	/**
@@ -157,7 +234,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	{
 		$model=<?php echo $this->modelClass; ?>::model()->findByPk($id);
 		if ($model===null) {
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,Yii::t('app','The requested page does not exist.'));
 		}
 		return $model;
 	}
