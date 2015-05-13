@@ -20,7 +20,7 @@
  </target>
 
  <target name="generate-code" description="Generate Currency-specific subclasses of Money and autoloader code">
-  <exec executable="php ${basedir}/build/generate-child-classes.php" taskname="generate-code"/>
+  <exec executable="${basedir}/build/generate-child-classes.php" taskname="generate-code"/>
 
   <exec executable="php ${basedir}/build/tools/phpab.phar" taskname="generate-code">
    <arg value="--output" />
