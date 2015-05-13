@@ -19,7 +19,7 @@
   <property name="prepare.done" value="true"/>
  </target>
 
- <target name="phploc" description="Measure project size using PHPLOC">
+ <target name="phploc" depends="prepare" description="Measure project size using PHPLOC">
   <exec executable="php ${basedir}/build/tools/phploc.phar" taskname="phploc">
    <arg value="--count-tests" />
    <arg path="${basedir}/src" />
@@ -48,7 +48,7 @@
   </exec>
  </target>
 
- <target name="phpmd" description="Perform project mess detection using PHPMD and print result in text format">
+ <target name="phpmd" depends="prepare" description="Perform project mess detection using PHPMD and print result in text format">
   <exec executable="php ${basedir}/build/tools/phpmd.phar" taskname="phpmd">
    <arg path="${basedir}/src" />
    <arg value="text" />
@@ -66,7 +66,7 @@
   </exec>
  </target>
 
- <target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer and print result in text format">
+ <target name="phpcs" depends="prepare" description="Find coding standard violations using PHP_CodeSniffer and print result in text format">
   <exec executable="php ${basedir}/build/tools/phpcs.phar" taskname="phpcs">
    <arg value="--standard=PSR2" />
    <arg value="--extensions=php" />
@@ -87,7 +87,7 @@
   </exec>
  </target>
 
- <target name="phpcpd" description="Find duplicate code using PHPCPD">
+ <target name="phpcpd" depends="prepare" description="Find duplicate code using PHPCPD">
   <exec executable="php ${basedir}/build/tools/phpcpd.phar" taskname="phpcpd">
    <arg path="${basedir}/src" />
   </exec>
