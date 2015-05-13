@@ -19,32 +19,6 @@
   <property name="prepare.done" value="true"/>
  </target>
 
- <target name="generate-code" description="Generate Currency-specific subclasses of Money and autoloader code">
-  <exec executable="${basedir}/build/generate-child-classes.php" taskname="generate-code"/>
-
-  <exec executable="${basedir}/build/tools/phpab.phar" taskname="generate-code">
-   <arg value="--output" />
-   <arg path="src/autoload.php" />
-   <arg path="src" />
-  </exec>
- </target>
-
- <target name="lint" depends="generate-code">
-  <apply executable="php" failonerror="true" taskname="lint">
-   <arg value="-l" />
-
-   <fileset dir="${basedir}/src">
-    <include name="**/*.php" />
-    <modified />
-   </fileset>
-
-   <fileset dir="${basedir}/tests">
-    <include name="**/*.php" />
-    <modified />
-   </fileset>
-  </apply>
- </target>
-
  <target name="phploc" description="Measure project size using PHPLOC">
   <exec executable="${basedir}/build/tools/phploc.phar" taskname="phploc">
    <arg value="--count-tests" />
